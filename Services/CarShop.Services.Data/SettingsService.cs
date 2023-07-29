@@ -1,0 +1,29 @@
+﻿namespace CarShop.Services.Data
+{
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using CarShop.Data.Common.Repositories;
+    using CarShop.Data.Models;
+    using CarShop.Services.Mapping;
+
+    public class SettingsService : ISettingsService
+    {
+        private readonly IDeletableEntityRepository<Setting> settingsRepository;
+
+        public SettingsService(IDeletableEntityRepository<Setting> settingsRepository)
+        {
+            this.settingsRepository = settingsRepository;
+        }
+
+        public int GetCount()
+        {
+            return this.settingsRepository.AllAsNoTracking().Count();
+        }
+
+        public IEnumerable<T> GetAll<T>()
+        {
+            return this.settingsRepository.All().To<T>().ToList();
+        }
+    }
+}
