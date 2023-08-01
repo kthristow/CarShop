@@ -26,6 +26,20 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Car> Cars { get; set; }
+
+        public DbSet<CarBrand> CarBrands { get; set; }
+
+        public DbSet<CarModel> CarModels { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<EngineType> EngineTypes { get; set; }
+
+        public DbSet<Transmission> Transmissions { get; set; }
+
+        public int MyProperty { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
