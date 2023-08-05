@@ -7,13 +7,11 @@
 
     public class CarModel : BaseDeletableModel<int>
     {
-        public CarModel()
-        {
-              this.CarBrands = new List<CarBrand>();
-        }
 
         public string ModelName { get; set; }
 
-        public ICollection<CarBrand> CarBrands { get; set; }
+        public int CarBrandId { get; set; }
+
+        public CarBrand CarBrand { get; set; }
     }
 }

@@ -12,7 +12,7 @@
 
         public string Color { get; set; }
 
-        public int TransimmisionId { get; set; }
+        public int TransmissionId { get; set; }
 
         public virtual Transmission Transmission { get; set; }
 
