@@ -13,8 +13,6 @@
 
         public string Name { get; set; }
 
-        public int HorsePower { get; set; }
-
         public ICollection<Car> Cars { get; set; }
     }
 }

@@ -6,9 +6,11 @@
 
     public class Car : BaseDeletableModel<int>
     {
-        public DateTime DateOfCreation { get; set; }
+        public int YearOfCreation { get; set; }
 
         public int Mileage { get; set; }
+
+        public int HorsePower { get; set; }
 
         public string Color { get; set; }
 
