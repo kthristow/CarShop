@@ -1,16 +1,24 @@
 ﻿namespace CarShop.Web.Controllers
 {
     using System.Diagnostics;
-
+    using CarShop.Services.Data;
     using CarShop.Web.ViewModels;
 
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
     {
+        private readonly IDashboardService dashboardService;
+
+        public HomeController(IDashboardService dashboardService)
+        {
+            this.dashboardService = dashboardService;
+        }
+
         public IActionResult Index()
         {
-            return this.View();
+            var vm = this.dashboardService.GetLastUploadedCars();
+            return this.View(vm);
         }
 
         public IActionResult Privacy()

@@ -15,10 +15,12 @@
 
         public virtual Car Car { get; set; }
 
-        public int UserId { get; set; }
+        public string AddedByUserId { get; set; }
 
-        public ApplicationUser User { get; set; }
+        public ApplicationUser AddedByUser { get; set; }
 
         public string Extension { get; set; }
+
+        public string RemoteUrl { get; set; }
     }
 }

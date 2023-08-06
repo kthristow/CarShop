@@ -1,11 +1,17 @@
 ﻿namespace CarShop.Data.Models
 {
-    using System;
+    using System.Collections.Generic;
 
     using CarShop.Data.Common.Models;
 
     public class Car : BaseDeletableModel<int>
     {
+
+        public Car()
+        {
+            this.Images = new List<Image>();
+        }
+
         public int YearOfCreation { get; set; }
 
         public int Mileage { get; set; }
@@ -29,5 +35,11 @@
         public int CarModelId { get; set; }
 
         public virtual CarModel CarModel { get; set; }
+
+        public string AddedByUserId { get; set; }
+
+        public ApplicationUser AddedByUser { get; set; }
+
+        public ICollection<Image> Images { get; set; }
     }
 }
