@@ -1,10 +1,10 @@
 ﻿namespace CarShop.Services.Data
 {
-    using CarShop.Data;
-
-    using CarShop.Web.ViewModels.Home;
     using System.Collections.Generic;
     using System.Linq;
+
+    using CarShop.Data;
+    using CarShop.Web.ViewModels.Home;
 
     public class DashboardService : IDashboardService
     {
@@ -15,10 +15,12 @@
             this.dbContext = dbContext;
         }
 
-        public List<HomeVM> GetLastUploadedCars()
+        public List<CarViewModel> GetLastUploadedCars(int page, int itemsPerPage = 12)
         {
             return this.dbContext.Cars
-                .Select(x => new HomeVM
+                .OrderByDescending(x => x.Id)
+                .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
+                .Select(x => new CarViewModel
                 {
                     CarModel = x.CarModel.ModelName,
                     CarBrand = x.CarModel.CarBrand.BrandName,
@@ -28,6 +30,11 @@
                     YearOfCreation = x.YearOfCreation,
                     RemoteUrl = x.Images.FirstOrDefault().RemoteUrl,
                 }).ToList();
+        }
+
+        public int GetCount()
+        {
+            return this.dbContext.Cars.Count();
         }
     }
 }

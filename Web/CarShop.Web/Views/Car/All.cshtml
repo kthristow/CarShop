@@ -1,0 +1,33 @@
+﻿@using CarShop.Common
+@using CarShop.Web.ViewModels.Home;
+@model CarsViewModel
+@{
+    this.ViewData["Title"] = $"All Cars, Page {Model.PageNumber}";
+}
+
+
+<h1 class="display-4">@this.ViewData["Title"]</h1>
+
+<hr />
+
+<div class="row">
+
+    @foreach (var car in Model.Cars)
+    {
+        <div class="card col-md-4" style="width: 18rem; margin:10px;">
+            <img src="@car.RemoteUrl" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">@car.CarBrand (@car.CarModel)</h5>
+                <p class="card-text">The @car.CategoryName it's build @car.YearOfCreation year and has @car.HorsePower hourse power.</p>
+            </div>
+            <div class="card-body">
+                <a href="#" class="card-link">Edit Description</a>
+                <a href="#" class="card-link">Delete Car</a>
+            </div>
+        </div>
+    }
+</div>
+
+<hr />
+
+<partial name="_PagingPartial" model="Model"/>

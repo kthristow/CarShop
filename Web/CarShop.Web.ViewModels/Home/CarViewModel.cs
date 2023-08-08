@@ -1,6 +1,6 @@
 ﻿namespace CarShop.Web.ViewModels.Home
 {
-    public class HomeVM
+    public class CarViewModel
     {
         public string CarBrand { get; set; }
 
@@ -15,5 +15,7 @@
         public int HorsePower { get; set; }
 
         public string RemoteUrl { get; set; }
+
+
     }
 }
