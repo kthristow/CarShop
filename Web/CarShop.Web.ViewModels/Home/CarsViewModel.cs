@@ -5,8 +5,9 @@
 
     public class CarsViewModel : PagingViewModel
     {
-
         public List<CarViewModel> Cars { get; set; }
+
+        public string UserId { get; set; }
 
     }
 }

@@ -2,6 +2,8 @@
 {
     public class CarViewModel
     {
+        public int CarId { get; set; }
+
         public string CarBrand { get; set; }
 
         public string CarModel { get; set; }
@@ -14,8 +16,7 @@
 
         public int HorsePower { get; set; }
 
-        public string RemoteUrl { get; set; }
-
+        public string ImageUrl { get; set; }
 
     }
 }

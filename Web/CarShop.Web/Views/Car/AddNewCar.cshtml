@@ -1,51 +1,98 @@
-﻿
+﻿@model CarShop.Web.ViewModels.Car.AddNewCarViewModel
+
 @{
     this.ViewData["title"] = "Add New Car";
+    var brands = Model.CarBrands.Select(x => new SelectListItem() { Value = x.Key, Text = x.Value });
+    var categories = Model.Category.Select(x => new SelectListItem() { Value = x.Key, Text = x.Value });
+    var engineTypes = Model.EngineType.Select(x => new SelectListItem() { Value = x.Key, Text = x.Value });
+    var transmissions = Model.Transmission.Select(x => new SelectListItem() { Value = x.Key, Text = x.Value });
 }
 <h1>@this.ViewData["title"]</h1>
-<form>
+
+<form asp-controller="Car" asp-action="AddNewCar" method="post" enctype="multipart/form-data">
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="inputEmail4">Email</label>
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-        </div>
-        <div class="form-group col-md-6">
-            <label for="inputPassword4">Password</label>
-            <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputAddress">Address</label>
-        <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-    </div>
-    <div class="form-group">
-        <label for="inputAddress2">Address 2</label>
-        <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="inputCity">City</label>
-            <input type="text" class="form-control" id="inputCity">
-        </div>
-        <div class="form-group col-md-4">
-            <label for="inputState">State</label>
-            <select id="inputState" class="form-control">
-                <option selected>Choose...</option>
-                <option>...</option>
+            <label asp-for=CarBrandId>Car Brand</label>
+            <select onchange="onChangeBrand()" asp-for=CarBrandId id="carBrands" asp-items=@brands class="form-select" aria-label="Default select example">
+                <option selected>Select brand</option>
             </select>
         </div>
-        <div class="form-group col-md-2">
-            <label for="inputZip">Zip</label>
-            <input type="text" class="form-control" id="inputZip">
+        <div class="form-group col-md-6">
+            <label asp-for="CarModelId">Car Model</label>
+            <select id="carModels" class="form-select" asp-for="CarModelId">
+                <option selected>Please select brand</option>
+
+            </select>
+        </div>
+        <div class="form-group col-md-6">
+            <label asp-for=CategoryId>Category</label>
+            <select asp-for=CategoryId asp-items=@categories class="form-select">
+                <option selected>Select Category</option>
+            </select>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label asp-for=EngineTypeId>Engine Type</label>
+            <select asp-for=EngineTypeId asp-items=@engineTypes class="form-select">
+                <option selected>Select Engine Type</option>
+            </select>
+        </div>
+
+
+        <div class="form-group col-md-6">
+            <label asp-for=TransmissionId>Transmission</label>
+            <select asp-for=TransmissionId asp-items=@transmissions class="form-select">
+                <option selected>Select Transmission</option>
+            </select>
+        </div>
+
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputBrand4">Year Of Creation</label>
+            <input class="form-control" id="YearOfCreation" asp-for="YearOfCreation" placeholder="Enter Year of Creation" value="">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Mileage</label>
+            <input class="form-control" id="Mileage" placeholder="Enter Mileage" asp-for="Mileage" value="">
         </div>
     </div>
-    <div class="form-group">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" id="gridCheck">
-            <label class="form-check-label" for="gridCheck">
-                Check me out
-            </label>
-        </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress">Horse Power</label>
+        <input type="text" class="form-control" id="hoursePower" asp-for="HoursePower" placeholder="Enter Horse Power" value="">
     </div>
-    <button type="submit" class="btn btn-primary">Add Car</button>
+    <div class="form-group col-md-6">
+        <label for="inputAddress2">Color</label>
+        <input type="text" class="form-control" id="Color" asp-for="Color" placeholder="Enter Color" value="">
+    </div>
+    <div class="form-group col-md-6">
+        <label asp-for="Images"></label>
+        <input asp-for="Images">
+    </div>
+    <button style="margin-top:10px;" type="submit" class="btn btn-primary">Add Car</button>
 </form>
+
+<script type="text/javascript">
+    function onChangeBrand() {
+        var carBrand = parseInt($('#carBrands').val());
+
+        $.ajax({
+            url: '/Car/GetModels' + '?carBrandId=' + carBrand,
+            method: 'GET',
+            success: function (response) {
+                $('#carModels').empty();
+                $('#carModels').append(`<option selected>Please select brand</option>`)
+
+                for (const [key, value] of Object.entries(response)) {
+                    $('#carModels').append(`<option value=${key}>${value}</option>`);
+                    console.log(key, value);
+                }
+
+            }
+
+        });
+    }
+
+
+</script>

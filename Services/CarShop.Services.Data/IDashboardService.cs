@@ -8,6 +8,8 @@
     {
         List<CarViewModel> GetLastUploadedCars(int page, int itemsPerPage = 12);
 
+        List<CarViewModel> GetMyCars(int page, string userId, int itemsPerPage = 12);
+
         int GetCount();
     }
 }
