@@ -1,11 +1,9 @@
 ﻿namespace CarShop.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
     using CarShop.Data;
-    using CarShop.Web.ViewModels.Administration.Dashboard;
     using CarShop.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Hosting;
 
@@ -27,14 +25,13 @@
                 .Skip((page - 1) * itemsPerPage).Take(itemsPerPage)
                 .Select(x => new CarViewModel
                 {
-                    CarId = x.Id,
                     CarModel = x.CarModel.ModelName,
                     CarBrand = x.CarModel.CarBrand.BrandName,
                     CategoryName = x.Category.Name,
                     HorsePower = x.HorsePower,
                     Mileage = x.Mileage,
                     YearOfCreation = x.YearOfCreation,
-                    ImageUrl = "/images/cars/" + x.Image.Id + "." + x.Image.Extension,
+                    ImageUrl = $"~/cars/{x.Images.FirstOrDefault().Id}{x.Images.FirstOrDefault().Extension}",
                 }).ToList();
         }
 
@@ -58,40 +55,8 @@
                   HorsePower = x.HorsePower,
                   Mileage = x.Mileage,
                   YearOfCreation = x.YearOfCreation,
-                  ImageUrl = "/images/cars/" + x.Image.Id + "." + x.Image.Extension,
+                  ImageUrl = $"{this.env.WebRootPath}/cars/{x.Images.FirstOrDefault().Id}{x.Images.FirstOrDefault().Extension}",
               }).ToList();
-        }
-
-        public HomePageViewModel GetHomePage(int count)
-        {
-            var homePage = new HomePageViewModel
-            {
-                BrandsCount = this.dbContext.CarBrands.Count(),
-                CarsCount = this.dbContext.Cars.Count(),
-                ModelsCount = this.dbContext.CarModels.Count(),
-                CategoryCount = this.dbContext.Categories.Count(),
-                Cars = this.GetRandomCars(count),
-            };
-
-            return homePage;
-        }
-
-        private IEnumerable<CarViewModel> GetRandomCars(int count)
-        {
-             return this.dbContext.Cars
-             .OrderBy(x => Guid.NewGuid())
-             .Take(count)
-             .Select(x => new CarViewModel
-             {
-                 CarId = x.Id,
-                 CarModel = x.CarModel.ModelName,
-                 CarBrand = x.CarModel.CarBrand.BrandName,
-                 CategoryName = x.Category.Name,
-                 HorsePower = x.HorsePower,
-                 Mileage = x.Mileage,
-                 YearOfCreation = x.YearOfCreation,
-                 ImageUrl = "/images/cars/" + x.Image.Id + "." + x.Image.Extension,
-             }).ToList();
         }
     }
 }

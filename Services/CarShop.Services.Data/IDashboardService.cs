@@ -11,7 +11,5 @@
         List<CarViewModel> GetMyCars(int page, string userId, int itemsPerPage = 12);
 
         int GetCount();
-
-        HomePageViewModel GetHomePage(int count);
     }
 }

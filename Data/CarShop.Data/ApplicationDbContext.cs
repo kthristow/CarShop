@@ -38,7 +38,7 @@
 
         public DbSet<Transmission> Transmissions { get; set; }
 
-        public DbSet<Image> Image { get; set; }
+        public int MyProperty { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

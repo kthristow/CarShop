@@ -1,6 +1,5 @@
 ﻿namespace CarShop.Services.Data
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
@@ -75,42 +74,27 @@
                 TransmissionId = viewModel.TransmissionId,
                 YearOfCreation = viewModel.YearOfCreation,
                 AddedByUserId = userId,
-                Description = viewModel.Description,
             };
 
-            var extension = Path.GetExtension(viewModel.Images.FileName).TrimStart('.');
-            var dbImage = new Image()
+            foreach (var image in viewModel.Images)
             {
-                AddedByUserId = userId,
-                Extension = extension,
-            };
+                var extension = Path.GetExtension(image.FileName);
+                var dbImage = new Image()
+                { 
+                    AddedByUserId = userId,
+                    Extension = extension,
+                };
 
-            dbModel.Image = dbImage;
-            dbModel.ImageId = Guid.Parse(dbImage.Id);
+                dbModel.Images.Add(dbImage);
 
-            var physicalPath = $"{imagePath}/cars/{dbImage.Id}.{extension}";
-            using (Stream filestream = new FileStream(physicalPath, FileMode.Create))
-            {
-                viewModel.Images.CopyTo(filestream);
+                var physicalPath = $"{imagePath}/cars/{dbImage.Id}{extension}";
+                using (Stream filestream = new FileStream(physicalPath, FileMode.Create))
+                {
+                    image.CopyTo(filestream);
+                }
             }
 
-
             this.dbContext.Add(dbModel);
-            this.dbContext.SaveChanges();
-        }
-
-        public void UpdateCar(AddNewCarViewModel viewModel)
-        {
-            var getExistingModel = this.dbContext.Cars.FirstOrDefault(x => x.Id == viewModel.CarId);
-            getExistingModel.CarModelId = viewModel.CarModelId;
-            getExistingModel.CategoryId = viewModel.CategoryId;
-            getExistingModel.Color = viewModel.Color;
-            getExistingModel.EngineTypeId = viewModel.EngineTypeId;
-            getExistingModel.HorsePower = viewModel.HoursePower;
-            getExistingModel.Mileage = viewModel.Mileage;
-            getExistingModel.TransmissionId = viewModel.TransmissionId;
-            getExistingModel.YearOfCreation = viewModel.YearOfCreation;
-            getExistingModel.Description = viewModel.Description;
             this.dbContext.SaveChanges();
         }
 
@@ -119,7 +103,6 @@
             var vm = this.dbContext.Cars.Where(x => x.Id == id)
                 .Select(x => new DetailsCarViewModel
                 {
-                    Id = x.Id,
                     Brand = x.CarModel.CarBrand.BrandName,
                     Model = x.CarModel.ModelName,
                     Category = x.Category.Name,
@@ -129,49 +112,9 @@
                     Mileage = x.Mileage,
                     YearOfCreation = x.YearOfCreation,
                     Transmission = x.Transmission.Name,
-                    ImageUrl = "/images/cars/" + x.Image.Id + "." + x.Image.Extension,
-                    Description = x.Description,
-                    UserId = x.AddedByUserId,
-
                 }).FirstOrDefault();
 
             return vm;
-        }
-
-        public AddNewCarViewModel GetExistingCarForUpdate(int id)
-        {
-            var car = this.dbContext.Cars.FirstOrDefault(x => x.Id == id);
-
-            var vm = new AddNewCarViewModel()
-            {
-                CarBrands = this.GetBrands(),
-                Category = this.GetCatergories(),
-                Transmission = this.GetTransmissions(),
-                EngineType = this.GetEngineTypes(),
-                Color = car.Color,
-                Description = car.Description,
-                CarModelId = car.CarModelId,
-                CategoryId = car.CategoryId,
-                EngineTypeId = car.EngineTypeId,
-                HoursePower = car.HorsePower,
-                Mileage = car.Mileage,
-                TransmissionId = car.TransmissionId,
-                YearOfCreation = car.YearOfCreation,
-                CarId = car.Id,
-            };
-            var carBrand = this.dbContext.CarModels.Where(x => vm.CarModelId == x.Id).FirstOrDefault();
-
-            vm.CarBrandId = carBrand.CarBrandId;
-            return vm;
-        }
-
-        public void DeleteCar(int id)
-        {
-            var getCar = this.dbContext.Cars.FirstOrDefault(x => x.Id == id);
-            var image = this.dbContext.Image.FirstOrDefault(x => x.Id == getCar.ImageId.ToString());
-            this.dbContext.Remove(image);
-            this.dbContext.Remove(getCar);
-            this.dbContext.SaveChanges();
         }
     }
 }
