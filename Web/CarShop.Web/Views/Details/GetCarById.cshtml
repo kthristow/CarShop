@@ -7,7 +7,7 @@
         @if (Model.UserId == this.User.Identity.GetUserId() && this.User.Identity.IsAuthenticated)
         {
             <div class="nav-buttons" style="padding-bottom:30px;">
-                <a asp-action="DeleteCar" asp-controller="Car" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                <a asp-action="DeleteCar" asp-controller="Car" asp-route-id="@Model.Id" class="btn btn-danger">Delete Car</a>
                 <a asp-action="EditCar" asp-controller="Car" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
                 <a asp-action="All" asp-controller="Car" class="btn btn-secondary">Back</a>
             </div>
