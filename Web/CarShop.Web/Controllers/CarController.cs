@@ -52,9 +52,25 @@
         [Authorize]
         public IActionResult AddNewCar(AddNewCarViewModel model)
         {
-           this.carService.SaveNewCar(model, this.User.FindFirstValue(ClaimTypes.NameIdentifier), this.webHostEnvironment.WebRootPath);
+           this.carService.SaveNewCar(model, this.User.FindFirstValue(ClaimTypes.NameIdentifier), $"{this.webHostEnvironment.WebRootPath}/images");
 
            return this.Redirect("MyCars");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult EditCar(int id)
+        {
+            var viewModel = this.carService.GetExistingCarForUpdate(id);
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult EditCar(AddNewCarViewModel updatedCar)
+        {
+            this.carService.UpdateCar(updatedCar);
+            return this.RedirectToAction("MyCars");
         }
 
         [HttpGet]
@@ -63,6 +79,14 @@
         {
             var jsonRes = this.carService.GetModels(carBrandId);
             return this.Json(jsonRes);
+        }
+
+
+        [Authorize]
+        public IActionResult DeleteCar(int id)
+        {
+            this.carService.DeleteCar(id);
+            return this.RedirectToAction("MyCars");
         }
 
         [HttpGet]

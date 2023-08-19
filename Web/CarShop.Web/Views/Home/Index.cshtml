@@ -1,2 +1,31 @@
-﻿<h1 class="display-4 text-center">Welcome to Car Catalog.</h1>
-<h3 class="display-4 text-center">Log in to start the journey!!</h3>
+﻿@using CarShop.Common;
+@using CarShop.Web.ViewModels.Home;
+@model HomePageViewModel
+
+<div class="text-center row">
+    <h1 class="display-4">Welcome to @GlobalConstants.SystemName</h1>
+    <div class="col-md-8">
+        <div class="row">
+        @foreach (var car in Model.Cars)
+        {
+            <div class="card col-md-6">
+                <img class="card-img-top" src="@car.ImageUrl">
+                <div class="card-body">
+                    <h5 class="card-title">@car.CarBrand @car.CarModel</h5>
+                    <p class="card-text">This is a @car.CategoryName with @car.HorsePower and date of creation @car.YearOfCreation</p>
+                </div>
+            </div>
+        }
+        </div>
+    </div>
+    <div class="col-md-4">
+        <p>We have:</p>
+        <ul class="list-group">
+            <li class="list-group-item bg-info">Cars: @Model.CarsCount</li>
+            <li class="list-group-item bg-light">Brands: @Model.BrandsCount</li>
+            <li class="list-group-item bg-info">Models: @Model.ModelsCount</li>
+            <li class="list-group-item bg-light">Categories: @Model.CategoryCount</li>
+        </ul>
+    </div>
+
+</div>

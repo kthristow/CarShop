@@ -4,7 +4,6 @@
 
     using CarShop.Services.Data;
     using CarShop.Web.ViewModels;
-    using CarShop.Web.ViewModels.Home;
     using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : BaseController
@@ -16,13 +15,9 @@
             this.dashboardService = dashboardService;
         }
 
-        public IActionResult Index(int id = 1)
+        public IActionResult Index()
         {
-            var vm = new CarsViewModel()
-            {
-                PageNumber = id,
-                Cars = this.dashboardService.GetLastUploadedCars(id, 12),
-            };
+            var vm = this.dashboardService.GetHomePage(10);
             return this.View(vm);
         }
 

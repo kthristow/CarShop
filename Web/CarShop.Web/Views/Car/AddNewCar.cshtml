@@ -16,6 +16,7 @@
             <select onchange="onChangeBrand()" asp-for=CarBrandId id="carBrands" asp-items=@brands class="form-select" aria-label="Default select example">
                 <option selected>Select brand</option>
             </select>
+            <span asp-validation-for="CarBrandId" class="text-danger"></span>
         </div>
         <div class="form-group col-md-6">
             <label asp-for="CarModelId">Car Model</label>
@@ -23,12 +24,14 @@
                 <option selected>Please select brand</option>
 
             </select>
+            <span asp-validation-for="CarModelId" class="text-danger"></span>
         </div>
         <div class="form-group col-md-6">
             <label asp-for=CategoryId>Category</label>
             <select asp-for=CategoryId asp-items=@categories class="form-select">
                 <option selected>Select Category</option>
             </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
         </div>
 
         <div class="form-group col-md-6">
@@ -36,14 +39,16 @@
             <select asp-for=EngineTypeId asp-items=@engineTypes class="form-select">
                 <option selected>Select Engine Type</option>
             </select>
+            <span asp-validation-for="EngineTypeId" class="text-danger"></span>
         </div>
 
 
         <div class="form-group col-md-6">
             <label asp-for=TransmissionId>Transmission</label>
-            <select asp-for=TransmissionId asp-items=@transmissions class="form-select">
+            <select asp-for=TransmissionId  asp-items=@transmissions class="form-select">
                 <option selected>Select Transmission</option>
             </select>
+            <span asp-validation-for="TransmissionId" class="text-danger"></span>
         </div>
 
     </div>
@@ -51,26 +56,36 @@
     <div class="form-row">
         <div class="form-group col-md-6">
             <label for="inputBrand4">Year Of Creation</label>
-            <input class="form-control" id="YearOfCreation" asp-for="YearOfCreation" placeholder="Enter Year of Creation" value="">
+            <input class="form-control" id="YearOfCreation" asp-for="YearOfCreation" placeholder="Enter Year of Creation">
+            <span asp-validation-for="YearOfCreation" class="text-danger"></span>
         </div>
         <div class="form-group col-md-6">
             <label for="inputPassword4">Mileage</label>
-            <input class="form-control" id="Mileage" placeholder="Enter Mileage" asp-for="Mileage" value="">
+            <input class="form-control" id="Mileage" placeholder="Enter Mileage" asp-for="Mileage">
+            <span asp-validation-for="Mileage" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress">Horse Power</label>
-        <input type="text" class="form-control" id="hoursePower" asp-for="HoursePower" placeholder="Enter Horse Power" value="">
+        <input type="text" class="form-control" id="hoursePower" asp-for="HoursePower" placeholder="Enter Horse Power">
+        <span asp-validation-for="HoursePower" class="text-danger"></span>
     </div>
     <div class="form-group col-md-6">
         <label for="inputAddress2">Color</label>
-        <input type="text" class="form-control" id="Color" asp-for="Color" placeholder="Enter Color" value="">
+        <input type="text" class="form-control" id="Color" asp-for="Color" placeholder="Enter Color">
+        <span asp-validation-for="Color" class="text-danger"></span>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputAddress2">Description</label>
+        <input type="text" class="form-control" id="Color" asp-for="Description">
+        <span asp-validation-for="Description" class="text-danger"></span>
     </div>
     <div class="form-group col-md-6">
         <label asp-for="Images"></label>
         <input asp-for="Images">
+        <span asp-validation-for="Images" class="text-danger"></span>
     </div>
-    <button style="margin-top:10px;" type="submit" class="btn btn-primary">Add Car</button>
+    <button style="margin-bottom: 45px;" type="submit" class="btn btn-primary">Add Car</button>
 </form>
 
 <script type="text/javascript">
