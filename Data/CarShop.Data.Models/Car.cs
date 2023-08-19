@@ -1,6 +1,5 @@
 ﻿namespace CarShop.Data.Models
 {
-    using System;
     using System.Collections.Generic;
 
     using CarShop.Data.Common.Models;
@@ -10,10 +9,8 @@
 
         public Car()
         {
-            this.Image = new Image();
+            this.Images = new List<Image>();
         }
-
-        public string Description { get; set; }
 
         public int YearOfCreation { get; set; }
 
@@ -43,8 +40,6 @@
 
         public ApplicationUser AddedByUser { get; set; }
 
-        public Guid ImageId { get; set; }
-
-        public Image Image { get; set; }
+        public ICollection<Image> Images { get; set; }
     }
 }

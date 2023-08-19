@@ -21,8 +21,8 @@
                 <p class="card-text">The @car.CategoryName it's build @car.YearOfCreation year and has @car.HorsePower hourse power.</p>
             </div>
             <div class="card-body">
-                <a asp-action="GetCarById" asp-controller="Details" asp-route-id="@car.CarId" class="btn btn-primary">See Description</a>
-                <a asp-action="DeleteCar" asp-controller="Car" asp-route-id="@car.CarId" class="btn btn-danger`">Delete Car</a>
+                <a asp-action="GetCarById" asp-controller="Details" asp-route-id="@car.CarId" class="card-link">See Description</a>
+                <a href="#" class="card-link">Delete Car</a>
             </div>
         </div>
     }
