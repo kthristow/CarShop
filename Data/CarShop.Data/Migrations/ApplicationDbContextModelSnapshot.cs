@@ -168,17 +168,11 @@ namespace CarShop.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("EngineTypeId")
                         .HasColumnType("int");
 
                     b.Property<int>("HorsePower")
                         .HasColumnType("int");
-
-                    b.Property<Guid>("ImageId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -364,8 +358,7 @@ namespace CarShop.Data.Migrations
 
                     b.HasIndex("AddedByUserId");
 
-                    b.HasIndex("CarId")
-                        .IsUnique();
+                    b.HasIndex("CarId");
 
                     b.ToTable("Image");
                 });
@@ -598,8 +591,8 @@ namespace CarShop.Data.Migrations
                         .HasForeignKey("AddedByUserId");
 
                     b.HasOne("CarShop.Data.Models.Car", "Car")
-                        .WithOne("Image")
-                        .HasForeignKey("CarShop.Data.Models.Image", "CarId")
+                        .WithMany("Images")
+                        .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -670,7 +663,7 @@ namespace CarShop.Data.Migrations
 
             modelBuilder.Entity("CarShop.Data.Models.Car", b =>
                 {
-                    b.Navigation("Image");
+                    b.Navigation("Images");
                 });
 
             modelBuilder.Entity("CarShop.Data.Models.CarBrand", b =>
