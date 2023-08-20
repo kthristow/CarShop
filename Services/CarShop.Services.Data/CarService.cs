@@ -66,14 +66,14 @@
             Directory.CreateDirectory($"{imagePath}/cars/");
             var dbModel = new Car()
             {
-                CarModelId = viewModel.CarModelId,
-                CategoryId = viewModel.CategoryId,
+                CarModelId = viewModel.CarModelId.Value,
+                CategoryId = viewModel.CategoryId.Value,
                 Color = viewModel.Color,
-                EngineTypeId = viewModel.EngineTypeId,
-                HorsePower = viewModel.HoursePower,
-                Mileage = viewModel.Mileage,
-                TransmissionId = viewModel.TransmissionId,
-                YearOfCreation = viewModel.YearOfCreation,
+                EngineTypeId = viewModel.EngineTypeId.Value,
+                HorsePower = viewModel.HoursePower.Value,
+                Mileage = viewModel.Mileage.Value,
+                TransmissionId = viewModel.TransmissionId.Value,
+                YearOfCreation = viewModel.YearOfCreation.Value,
                 AddedByUserId = userId,
                 Description = viewModel.Description,
             };
@@ -102,14 +102,14 @@
         public void UpdateCar(AddNewCarViewModel viewModel)
         {
             var getExistingModel = this.dbContext.Cars.FirstOrDefault(x => x.Id == viewModel.CarId);
-            getExistingModel.CarModelId = viewModel.CarModelId;
-            getExistingModel.CategoryId = viewModel.CategoryId;
+            getExistingModel.CarModelId = viewModel.CarModelId.Value;
+            getExistingModel.CategoryId = viewModel.CategoryId.Value;
             getExistingModel.Color = viewModel.Color;
-            getExistingModel.EngineTypeId = viewModel.EngineTypeId;
-            getExistingModel.HorsePower = viewModel.HoursePower;
-            getExistingModel.Mileage = viewModel.Mileage;
-            getExistingModel.TransmissionId = viewModel.TransmissionId;
-            getExistingModel.YearOfCreation = viewModel.YearOfCreation;
+            getExistingModel.EngineTypeId = viewModel.EngineTypeId.Value;
+            getExistingModel.HorsePower = viewModel.HoursePower.Value;
+            getExistingModel.Mileage = viewModel.Mileage.Value;
+            getExistingModel.TransmissionId = viewModel.TransmissionId.Value;
+            getExistingModel.YearOfCreation = viewModel.YearOfCreation.Value;
             getExistingModel.Description = viewModel.Description;
             this.dbContext.SaveChanges();
         }

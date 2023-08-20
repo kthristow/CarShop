@@ -13,29 +13,29 @@
         [Required]
         public Dictionary<string, string> CarBrands { get; set; }
 
-        [Required]
-        public int CarBrandId { get; set; }
+        [Range(1, int.MaxValue,ErrorMessage = "Brand is Required")]
+        public int? CarBrandId { get; set; }
 
         [Required]
         public Dictionary<string, string> CarModels { get; set; }
 
-        [Required]
-        public int CarModelId { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Model is Required")]
+        public int? CarModelId { get; set; }
 
         [Required]
         public Dictionary<string, string> Category { get; set; }
 
-        [Required]
-        public int CategoryId { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Category is Required")]
+        public int? CategoryId { get; set; }
 
         [Required]
-        public int YearOfCreation { get; set; }
+        public int? YearOfCreation { get; set; }
 
         [Required]
-        public int Mileage { get; set; }
+        public int? Mileage { get; set; }
 
         [Required]
-        public int HoursePower { get; set; }
+        public int? HoursePower { get; set; }
 
 
         public string Color { get; set; }
@@ -43,8 +43,8 @@
         [Required]
         public Dictionary<string, string> Transmission { get; set; }
 
-        [Required]
-        public int TransmissionId { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Transmission is Required")]
+        public int? TransmissionId { get; set; }
 
         [Required]
         public IFormFile Images { get; set; }
@@ -52,9 +52,10 @@
         [Required]
         public Dictionary<string, string> EngineType { get; set; }
 
-        [Required]
-        public int EngineTypeId { get; set; }
+        [Range(1, int.MaxValue, ErrorMessage = "Engine Type is Required")]
+        public int? EngineTypeId { get; set; }
 
+        [Required]
         public string Description { get; set; }
     }
 }
